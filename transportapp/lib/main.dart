@@ -106,13 +106,29 @@ class GeneratorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // var appState = context.watch<MyAppState>();
+    final theme = Theme.of(context);
+    final style = theme.textTheme.titleMedium!.copyWith(
+      color: Color.fromRGBO(46, 56, 64, 1.0),
+    );
 
     return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image(image: AssetImage('images/city_bus.jpg')),
-          Text("Convinience and Comfort")
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.all(25.0),
+              child: Text("Public Transport Tracker",
+                  style: theme.textTheme.displayLarge!),
+            ),
+          ),
+          Image(height: 200, image: AssetImage('images/city_bus.jpg')),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Center(
+                child: Text("Convinience and Comfort for Every ride",
+                    textAlign: TextAlign.center, style: style)),
+          ),
         ],
       ),
     );
@@ -125,7 +141,15 @@ class MapsPage extends StatelessWidget {
     // var appState = context.watch<MyAppState>();
     return Scaffold(
         body: Column(
-      children: [Text('Maps will be displayed here')],
+      children: [
+        Text('Choose drop off and pick up point'),
+        Image(height: 400, image: AssetImage('images/map_example.png')),
+        ElevatedButton(
+            onPressed: () {
+              print('button pressed!');
+            },
+            child: Text('Confirm Pickup')),
+      ],
     ));
   }
 }
