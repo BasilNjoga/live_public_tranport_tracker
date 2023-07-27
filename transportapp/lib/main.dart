@@ -8,7 +8,7 @@ void main() {
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -109,7 +109,7 @@ class GeneratorPage extends StatelessWidget {
   Widget build(BuildContext context) {
     // var appState = context.watch<MyAppState>();
     final theme = Theme.of(context);
-    final style = theme.textTheme.titleMedium!.copyWith(
+    final style = theme.textTheme.titleLarge!.copyWith(
       color: Color.fromRGBO(46, 56, 64, 1.0),
     );
 
@@ -120,16 +120,25 @@ class GeneratorPage extends StatelessWidget {
           Center(
             child: Padding(
               padding: const EdgeInsets.all(25.0),
-              child: Text("Public Transport Tracker",
-                  style: theme.textTheme.displayLarge!),
+              child: Text(
+                "Public Transport Tracker",
+                style: theme.textTheme.headlineMedium!,
+              ),
             ),
           ),
-          Image(height: 200, image: AssetImage('images/city_bus.jpg')),
+          Image(
+            height: 200,
+            image: AssetImage('images/city_bus.jpg'),
+          ),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Center(
-                child: Text("Convinience and Comfort for Every ride",
-                    textAlign: TextAlign.center, style: style)),
+              child: Text(
+                "Convenience and Comfort for Every Ride",
+                textAlign: TextAlign.center,
+                style: style,
+              ),
+            ),
           ),
         ],
       ),
@@ -137,7 +146,12 @@ class GeneratorPage extends StatelessWidget {
   }
 }
 
-class MapsPage extends State<MyApp> {
+class MapsPage extends StatefulWidget {
+  @override
+  _MapsPageState createState() => _MapsPageState();
+}
+
+class _MapsPageState extends State<MapsPage> {
   late GoogleMapController mapController;
 
   final LatLng sourceLocation =
@@ -152,61 +166,48 @@ class MapsPage extends State<MyApp> {
     PolylinePoints polylinePoints = PolylinePoints();
 
     PolylineResult result = await polylinePoints.getRouteBetweenCoordinates(
-        googleApiKey,
-        PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
-        PointLatLng(destination.latitude, destination.longitude));
+      googleApiKey,
+      PointLatLng(sourceLocation.latitude, sourceLocation.longitude),
+      PointLatLng(destination.latitude, destination.longitude),
+    );
 
     if (result.points.isNotEmpty) {
-      result.points.forEach(
-        (PointLatLng point) => polylineCoordinates.add(
-          LatLng(point.latitude, point.longitude),
-        ),
-      );
+      polylineCoordinates = result.points
+          .map((point) => LatLng(point.latitude, point.longitude))
+          .toList();
       setState(() {});
     }
   }
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
-  }
-
-  @override
-  void initState() {
-    getPolyPoints();
-    super.initState();
+    getPolyPoints(); // Call getPolyPoints() after the map controller is initialized.
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        useMaterial3: true,
-        colorSchemeSeed: Colors.green[700],
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Maps Sample App'),
+        elevation: 2,
       ),
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Maps Sample App'),
-          elevation: 2,
+      body: GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+          target: sourceLocation,
+          zoom: 14.5,
         ),
-        body: GoogleMap(
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: sourceLocation,
-            zoom: 14.5,
+        polylines: {
+          Polyline(
+            polylineId: PolylineId("route"),
+            points: polylineCoordinates,
           ),
-          polylines: {
-            Polyline(
-              polylineId: PolylineId("route"),
-              points: polylineCoordinates,
-            ),
-          },
-          markers: {
-            Marker(
-                markerId: const MarkerId("source"), position: sourceLocation),
-            Marker(
-                markerId: const MarkerId("destination"), position: destination)
-          },
-        ),
+        },
+        markers: {
+          Marker(markerId: const MarkerId("source"), position: sourceLocation),
+          Marker(
+              markerId: const MarkerId("destination"), position: destination),
+        },
       ),
     );
   }
