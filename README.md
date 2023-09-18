@@ -13,7 +13,7 @@ of your journey
 ### Frontend 
   - Flutter
   - Dart
-### API
+### API's
   - Django rest Framework
   - Google maps api
 
