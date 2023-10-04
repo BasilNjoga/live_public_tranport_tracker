@@ -38,6 +38,11 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "rest_framework",
+    "passengers.apps.PassengersConfig",
+    "vehicles.apps.VehiclesConfig",
+    "routes.apps.RoutesConfig",
+
 ]
 
 MIDDLEWARE = [
@@ -80,7 +85,7 @@ DATABASES = {
         "NAME": config("DB_NAME"),
         "USER": config("DB_USER"),
         "PASSWORD": config("DB_PASSWORD"),
-        "port": "3306",
+        "port": "5432",
     }
 }
 
