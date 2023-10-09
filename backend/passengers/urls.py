@@ -7,5 +7,5 @@ app_name = "passengers"
 
 
 urlpatterns = [
-    path("passengers", PassengerDetailListView.as_view(), name="passenger-details")
+    path("", PassengerDetailListView.as_view(), name="passenger-details")
 ]
