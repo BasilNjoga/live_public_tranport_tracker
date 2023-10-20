@@ -6,7 +6,7 @@ from django.contrib.postgres import fields as PostgresFields
 
 class PassengerDetail(models.Model):
     name = models.CharField(max_length=256, blank=False)
-    email = models.EmailField(blank=False)
+    email = models.EmailField(blank=True)
     isincar = models.BooleanField(blank=False)
     location = models.CharField(max_length=256)
 
