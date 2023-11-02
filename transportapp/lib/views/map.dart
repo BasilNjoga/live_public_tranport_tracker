@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_polyline_points/flutter_polyline_points.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:geolocator/geolocator.dart';
 import 'dart:developer' as devtools;
@@ -16,6 +17,12 @@ class MainMap extends StatefulWidget {
 class _MainMapState extends State<MainMap> {
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
+
+  final startController = TextEditingController();
+  final destinationController = TextEditingController();
+
+  final startFocusNode = FocusNode();
+  final destinationFocusNode = FocusNode();
 
 
   static const LatLng sourceLocation = LatLng(-1.071323704835, 37.04846351611011);
@@ -68,11 +75,10 @@ class _MainMapState extends State<MainMap> {
       );
 
       if (result.points.isNotEmpty) {
-        result.points.forEach(
-          (PointLatLng point) => 
-              polylineCoordinates.add(LatLng(point.latitude, point.longitude),
-              ),
-            );
+        for (var point in result.points) {
+          polylineCoordinates.add(LatLng(point.latitude, point.longitude),
+              );
+        }
             setState(() {});
       }
   }
@@ -88,12 +94,13 @@ class _MainMapState extends State<MainMap> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body
-      : GoogleMap(
+      body : Stack (
+      children: [
+      GoogleMap(
         mapType: MapType.normal,
         initialCameraPosition: const CameraPosition(
           target: sourceLocation,
-          zoom: 14.476),
+          zoom: 30.476),
         onMapCreated: (GoogleMapController controller) {
           _controller.complete(controller);
         },
@@ -119,18 +126,75 @@ class _MainMapState extends State<MainMap> {
             ),
         },
         ),
-        
-        floatingActionButton: Center(
-          child: Align(
-          alignment: Alignment.bottomCenter,
+
+      Positioned(
+        bottom: 0,
+        left: 85,
+        child: SafeArea(
+         bottom: true,
+          child:  Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(3.0),
+                child: SizedBox(
+                   width: 200,
+                   child: TextField(
+                   controller: startController,
+                   focusNode: startFocusNode,
+                   decoration: const InputDecoration(
+                     filled: true,
+                     fillColor: Colors.white ,
+                     hintText: 'Start'),
+                   ),
+                 ),
+              ),
+               Padding(
+                 padding: const EdgeInsets.all(3.0),
+                 child: SizedBox(
+                   width: 200,
+                   child: TextField(
+                   controller: destinationController,
+                   focusNode: destinationFocusNode,
+                   decoration: const InputDecoration(
+                     filled: true,
+                     fillColor: Colors.white ,
+                     hintText: 'Destination'),
+                           
+                    ),
+                  ),
+               ),
+        Padding(
+          padding: const EdgeInsets.all(3.0),
           child: FloatingActionButton.extended(
-            onPressed: _goToDestination,
-            label: const Text('To Destination!'),
-            icon: const Icon(Icons.directions_boat),
-          )
-        ),
-        )
-          );
+            onPressed: () {
+              final latitude = double.parse(startController.text);
+              final longitude = double.parse(destinationController.text);
+
+              placemarkFromCoordinates(latitude, longitude)
+              .then((placemarks) {
+                var output = 'No results found';
+                if (placemarks.isNotEmpty) {
+                  output = placemarks[0].toString();
+                }
+                devtools.log(output);
+              });
+
+
+            },
+            label: const Text("View Route"),
+            icon: const Icon(Icons.directions_boat),),
+        )],
+          ),
+         
+            ),
+      ),
+            
+        
+        
+        
+       ],
+    )
+    );
         
   }
 
