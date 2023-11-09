@@ -62,5 +62,17 @@ class CustomUserRegisterSerializer(serializers.ModelSerializer):
         user.save()
 
         return user
+    
+
+class CustomUserLoginSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField()
+    password = serializers.CharField()
+
+    class Meta:
+        model = CustomUser
+        fields = (
+            "emails",
+            "password",
+        )
 
     

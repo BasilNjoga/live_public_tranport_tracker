@@ -5,6 +5,7 @@ from django.utils import timezone
 from users.managers import CustomUserManager
 
 
+# Creates a cusom User 
 class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True)
     is_staff = models.BooleanField(default=False)
