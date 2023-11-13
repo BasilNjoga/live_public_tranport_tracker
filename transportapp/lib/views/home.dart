@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:transportapp/models/passengers.dart';
+import 'package:transportapp/models/users_model.dart';
 import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
@@ -12,12 +12,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  late Future<Passenger> futurePassenger;
+  late Future<User> futureUser;
 
   @override
   void initState() {
     super.initState();
-    futurePassenger = fetchPassenger();
+    futureUser = fetchUser();
   }
 
   @override
@@ -27,12 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
         title: const Text('Restful API call'),
       ),
       body: Center (
-        child: FutureBuilder<Passenger>(
+        child: FutureBuilder<User>(
 
-          future: futurePassenger,
+          future: futureUser,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text(snapshot.data!.name);
+              return Text(snapshot.data!.email);
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
             }
@@ -45,12 +45,12 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-Future<Passenger> fetchPassenger() async {
+Future<User> fetchUser() async {
   const uri = 'http://127.0.0.1:8000/passengers/2/';
   final response = await http.get(Uri.parse(uri));
 
   if (response.statusCode == 200) {
-    return Passenger.fromJson(jsonDecode(response.body));
+    return User.fromJson(jsonDecode(response.body));
   }
   else {
     throw Exception('Failed to load users');
