@@ -45,7 +45,7 @@ class DatabaseProvider {
     await database.execute(
       "CREATE TABLE $userTable ("
       "id INTEGER PRIMARY KEY, "
-      "username TEXT, "
+      "email TEXT, "
       "token TEXT "
       ")"
     );

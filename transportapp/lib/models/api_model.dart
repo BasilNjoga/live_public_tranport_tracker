@@ -1,30 +1,31 @@
 class UserLogin {
-  final String email;
-  final String password;
+  String email;
+  String password;
 
-  const UserLogin({
+  UserLogin({
     required this.email,
-    required this.password,
-  });
+    required this.password});
 
-
- Map <String, dynamic> toDatabaseJson() => {
+  Map <String, dynamic> toDatabaseJson() => {
     "email": email,
     "password": password
   };
 }
 
-class Token {
-  final String token;
+class Token{
+  final String refresh;
+  final String access;
 
-  const Token ({
-    required this.token
-  });
-
+  Token({
+    required this.refresh,
+    required this.access});
 
   factory Token.fromJson(Map<String, dynamic> json) {
     return Token(
-      token: json['token'],
-      );
+      refresh: json['refresh'],
+      access: json['access'],
+
+    );
   }
 }
+

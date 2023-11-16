@@ -1,3 +1,23 @@
+import 'package:flutter/material.dart';
+import 'package:transportapp/constants/routes.dart';
+import 'package:transportapp/map.dart';
+import 'package:transportapp/views/login_view.dart';
+import 'package:transportapp/views/register_view.dart';
+
+void main() {
+  runApp( MaterialApp(
+      home: RegisterView(),
+      routes: {
+        registerRoute: (coutext) => RegisterView(),
+        loginRoute: (context) => const LoginView(),
+        mapRoute: (context) => const MainMap(),
+      }
+    ),
+    );
+}
+
+// home.dart
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -50,10 +70,13 @@ Future<User> fetchUser() async {
   final response = await http.get(Uri.parse(uri));
 
   if (response.statusCode == 200) {
-    return User.fromJson(jsonDecode(response.body));
+    return User.fromDatabaseJson(jsonDecode(response.body));
   }
   else {
     throw Exception('Failed to load users');
   }
 
 }
+
+
+

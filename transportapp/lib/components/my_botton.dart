@@ -11,9 +11,7 @@ class MyLoginButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        Navigator.of(context).pushNamedAndRemoveUntil(mapRoute, (route) => false);
-      },
+      onTap: onTap,
       child: Container(
         padding: const EdgeInsets.all(25),
         margin: const EdgeInsets.symmetric(horizontal: 25),

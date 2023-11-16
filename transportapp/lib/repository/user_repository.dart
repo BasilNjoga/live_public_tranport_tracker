@@ -1,8 +1,13 @@
 import 'dart:async';
+
+
+import 'dart:developer' as devtools;
+
+import 'package:transportapp/api_connection/auth_service.dart';
+import 'package:transportapp/dao/user_dao.dart';
 import 'package:transportapp/models/api_model.dart';
 import 'package:transportapp/models/users_model.dart';
-import 'package:transportapp/services/auth_service.dart';
-import 'package:transportapp/services/user_dao.dart';
+
 
 class UserRepository {
   final userDao = UserDao();
@@ -16,11 +21,13 @@ class UserRepository {
         password: password
     );
     Token token = await getToken(userLogin);
+    devtools.log(token.access);
     User user = User(
       id: 0,
       email: email,
-      token: token.token,
+      token: token.access,
     );
+    devtools.log('User has been created Successfully');
     return user;
   }
 

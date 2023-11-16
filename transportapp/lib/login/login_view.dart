@@ -4,7 +4,7 @@ import 'package:transportapp/components/my_botton.dart';
 import 'package:transportapp/components/my_textfield.dart';
 import 'package:transportapp/components/square_tile.dart';
 import 'package:transportapp/constants/routes.dart';
-import 'package:transportapp/services/bloc/login_bloc.dart';
+import 'package:transportapp/login/bloc/login_bloc.dart';
 
 
 class LoginView extends StatefulWidget {
@@ -16,19 +16,20 @@ class LoginView extends StatefulWidget {
 
 class _LoginViewState extends State<LoginView> {
 
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   
 
   @override
   Widget build(BuildContext context) {
-    void signUserIn() {
-       BlocProvider.of<LoginBloc>(context).add(LoginButtonPressed(
-        username: usernameController.text,
+    onLoginButtonPressed() {
+      BlocProvider.of<LoginBloc>(context).add(LoginButtonPressed(
+        email: emailController.text,
         password: passwordController.text,
-       ));
-  }
+      ));
+    }
+
   return BlocListener<LoginBloc, LoginState>(
       listener: (context, state) {
         if (state is LoginFaliure) {
@@ -67,8 +68,8 @@ class _LoginViewState extends State<LoginView> {
         
                 //username Textfield
                 MyTextField(
-                  controller: usernameController,
-                  hintText: 'Username',
+                  controller: emailController,
+                  hintText: 'Email address',
                   obscureText: false,
                 ),
         
@@ -101,7 +102,7 @@ class _LoginViewState extends State<LoginView> {
         
                 // Sign In
                 MyLoginButton(
-                  onTap: signUserIn
+                  onTap: onLoginButtonPressed
                 ),
         
                 const SizedBox(height: 40,),
