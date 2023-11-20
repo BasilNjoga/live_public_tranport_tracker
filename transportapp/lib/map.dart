@@ -29,11 +29,12 @@ class _MainMapState extends State<MainMap> {
   final destinationFocusNode = FocusNode();
 
 
-  String startAddress = '' ;
-  String destinationAddress = '';
+  String startAddress = 's' ;
+  String destinationAddress = 't';
 
-  double totalDistance = 0.0;
-  
+  String? placeDistance;
+  int travelPrice = 50;
+
   Map<PolylineId, Polyline> polylines = {};
   List<LatLng> polylineCoordinates = [];
 
@@ -42,9 +43,6 @@ class _MainMapState extends State<MainMap> {
 
   
   Set<Marker> markers = {};
-
-
-
 
 
   //computer given locations and set Polyllines and Markers
@@ -86,39 +84,41 @@ class _MainMapState extends State<MainMap> {
       markers.add(destinationMarker);
 
 
-      double miny = (startLatitude <= destinationLatitude)
-          ? startLatitude
-          : destinationLatitude;
-      double minx = (startLongitude <= destinationLongitude)
-          ? startLongitude
-          : destinationLongitude;
-      double maxy = (startLatitude <= destinationLatitude)
-          ? destinationLatitude
-          : startLatitude;
-      double maxx = (startLongitude <= destinationLongitude)
-          ? destinationLongitude
-          : startLongitude;
+      // double miny = (startLatitude <= destinationLatitude)
+      //     ? startLatitude
+      //     : destinationLatitude;
+      // double minx = (startLongitude <= destinationLongitude)
+      //     ? startLongitude
+      //     : destinationLongitude;
+      // double maxy = (startLatitude <= destinationLatitude)
+      //     ? destinationLatitude
+      //     : startLatitude;
+      // double maxx = (startLongitude <= destinationLongitude)
+      //     ? destinationLongitude
+      //     : startLongitude;
 
-      double southWestLatitude = miny;
-      double southWestLongitude = minx;
+      // double southWestLatitude = miny;
+      // double southWestLongitude = minx;
 
-      double northEastLatitude = maxy;
-      double northEastLongitude = maxx;
-      devtools.log("changing controller");
+      // double northEastLatitude = maxy;
+      // double northEastLongitude = maxx;
+      // devtools.log("changing controller");
 
 
-      mapController.animateCamera(
-        CameraUpdate.newLatLngBounds(
-          LatLngBounds(
-            northeast: LatLng(northEastLatitude, northEastLongitude),
-            southwest: LatLng(southWestLatitude, southWestLongitude),
-          ),
-          100.0,
-        ),
-      );
+      // mapController.animateCamera(
+      //   CameraUpdate.newLatLngBounds(
+      //     LatLngBounds(
+      //       northeast: LatLng(northEastLatitude, northEastLongitude),
+      //       southwest: LatLng(southWestLatitude, southWestLongitude),
+      //     ),
+      //     100.0,
+      //   ),
+      // );
 
       await getPolyPoints(startLatitude, startLongitude, destinationLatitude, destinationLongitude);
 
+      double totalDistance = 0.0;
+      
       for (int i = 0; i < 4; i++) {
         totalDistance += _calculateDistance(
           startLatitude,
@@ -127,8 +127,10 @@ class _MainMapState extends State<MainMap> {
           destinationLongitude);
       }
       
-      devtools.log("This is the distance");
-      devtools.log(totalDistance.toString());
+      setState(() {
+        placeDistance = totalDistance.toStringAsFixed(2);
+        devtools.log("Distance: $placeDistance");
+      });
       
       return true;
     } catch (e) {
@@ -192,8 +194,9 @@ class _MainMapState extends State<MainMap> {
     return Scaffold(
       body :  Column(
       children: <Widget> [
+      
       Expanded(
-        flex: 7,
+        flex: 6,
         child: FutureBuilder(
           future: getUserLocation(),
           builder: (context, snapshot) {
@@ -230,135 +233,116 @@ class _MainMapState extends State<MainMap> {
           }),
       ),
       
-
+      
       Expanded(
-        flex: 3,
-        child: Positioned(
-          bottom: 0,
-          child: SafeArea(
-           bottom: true,
-           minimum: const EdgeInsets.all(6),
-            child:  Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                ),
-              width: width,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: SizedBox(
-                     // height: 100,
-                       //width: 450,
-                       child: Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: MapTextField(
-                         controller: startController,
-                         focusNode: startFocusNode,
-                         hintText: 'Start:',
-                         prefixIcon: const Icon(
-                            Icons.person_pin_circle,
-                            size: 30,
-                            ),
-                          locationCallback: (String value) {
-                                setState(() {
-                                  startAddress = value;
-                                });
-                              }
-                         ),
-                       ),
-                     ),
-                  ),
-                   Padding(
-                     padding: const EdgeInsets.all(8.0),
-                     child: SizedBox(
-                      //height: 75,
-                       //width: 450,
-                       child: Padding(
-                         padding: const EdgeInsets.all(8.0),
-                         child: MapTextField(
-                         controller: destinationController,
-                         focusNode: destinationFocusNode,
-                         hintText: 'Destination:',
-                         prefixIcon: const Icon(
-                            Icons.person_pin_circle,
-                            size: 30,
-                            ),
-                          locationCallback: (String value) {
-                                setState(() {
-                                  destinationAddress = value;
-                                });
-                              }
-                         ),
-                       ),
-                      ),
+        flex: 4,
+        child: SafeArea(
+        //  bottom: true,
+            top: false,
+        //  minimum: const EdgeInsets.all(0),
+          child:  Container(
+            decoration: BoxDecoration(
+              color: Colors.yellow,
+              borderRadius: BorderRadius.circular(20),
+              ),
+            width: width,
+            child: Column(
+              children: [
+                MapTextField(
+                controller: startController,
+                focusNode: startFocusNode,
+                hintText: 'Start:',
+                prefixIcon: const Icon(
+                   Icons.person_pin_circle,
+                   size: 30,
                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: SizedBox(
-                        child: FloatingActionButton.extended(
-                          onPressed: (startAddress != '' && 
-                                      destinationAddress != '') 
-                            ? () async {
-                              startAddress = startController.text;
-                              destinationAddress = destinationController.text;
-                              devtools.log("pressed this button");
-                              devtools.log("StartAddress: $startAddress \n StopAddress: $destinationAddress");
-
-                              startFocusNode.unfocus();
-                              destinationFocusNode.unfocus();
-
-                              setState(() {
-                                      if (markers.isNotEmpty) markers.clear();
-                                      if (polylines.isNotEmpty)
-                                        {
-                                          polylines.clear();
-                                          }
-                                      if (polylineCoordinates.isNotEmpty)
-                                        { 
-                                          polylineCoordinates.clear();
-                                        }
-                                    });
-                            getAddressLocations()
-                                .then((isCalculated) {
-                                  if (isCalculated) {
-                                    ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                                'Distance Calculated Sucessfully'),
-                                          ),
-                                  ); } else {
-                                    ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          const SnackBar(
-                                            content: Text(
-                                                'Error Calculating Distance'),
-                                          ),
-                                        );
-                                  }
-                                  }
-                                );
-                          } : null,
-                          label: const Text("View Route"),
-                          icon: const Icon(Icons.local_taxi_outlined),
-                          ),
-                      ),
+                 locationCallback: (String value) {
+                       setState(() {
+                         startAddress = value;
+                       });
+                     }
+                ),
+                 MapTextField(
+                 controller: destinationController,
+                 focusNode: destinationFocusNode,
+                 hintText: 'Destination:',
+                 prefixIcon: const Icon(
+                    Icons.person_pin_circle,
+                    size: 30,
                     ),
-                      ],
-              ),
+                  locationCallback: (String value) {
+                        setState(() {
+                          destinationAddress = value;
+                        });
+                      }
+                 ),
+                 const SizedBox(height: 1,),
+                 Text('DISTANCE: $placeDistance km',
+                 style: const TextStyle(
+                   fontSize: 16,
+                   fontWeight: FontWeight.bold,
+                 )),
+      
+      
+      
+                  SizedBox(
+                    child: FloatingActionButton.extended(
+                      onPressed: 
+                      (startAddress != '' && 
+                                  destinationAddress != '') 
+                        ? () async {
+                          
+                          startFocusNode.unfocus();
+                          destinationFocusNode.unfocus();
+      
+                          setState(() {
+                                  if (markers.isNotEmpty) markers.clear();
+                                  if (polylines.isNotEmpty)
+                                    {
+                                      polylines.clear();
+                                      }
+                                  if (polylineCoordinates.isNotEmpty)
+                                    { 
+                                      polylineCoordinates.clear();
+                                    }
+                                });
+                        getAddressLocations()
+                            .then((isCalculated) {
+                              if (isCalculated) {
+                                ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'Distance Calculated Sucessfully'),
+                                      ),
+                              ); } else {
+                                ScaffoldMessenger.of(context)
+                                        .showSnackBar(
+                                      const SnackBar(
+                                        content: Text(
+                                            'Error Calculating Distance'),
+                                      ),
+                                    );
+                              }
+                              }
+                            );
+                      } : null,
+                      label: const Text("View Route"),
+                      icon: const Icon(Icons.local_taxi_outlined),
+                      ),
+                  ),
+                    ],
             ),
-           
-              ),
-        ),
+          ),
+         
+            ),
       ),
             
         
         
         
        ],
-    )
+        )
     );
         
   }

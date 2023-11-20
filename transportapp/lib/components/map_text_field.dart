@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:developer' as devtools;
 
 class MapTextField extends StatelessWidget {
 
@@ -25,6 +26,7 @@ class MapTextField extends StatelessWidget {
                 child: TextField(
                   onChanged:(value) {
                     locationCallback(value);
+                    devtools.log(value);
                   },
                   controller: controller,
                   obscureText: false,
