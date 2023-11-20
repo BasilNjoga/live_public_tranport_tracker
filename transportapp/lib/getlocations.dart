@@ -2,7 +2,8 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:developer' as devtools;
 
-Future<LatLng> getUserLocation() async {
+Future<List<dynamic>> getUserLocation() async {
+    List myLocationDetails = [];
      bool serviceEnabled;
   LocationPermission permission;
 
@@ -30,8 +31,22 @@ Future<LatLng> getUserLocation() async {
 
     
 
+    
+
     devtools.log(currentLocation.toString());
 
-    return currentLocation;
+    Marker currentLocationMarker = Marker(
+        markerId: const MarkerId("myLocation"),
+        position: currentLocation,
+        infoWindow: InfoWindow(
+          title: 'Location $currentLocation',
+        ),
+        icon: BitmapDescriptor.defaultMarker,
+      );
+    
+    myLocationDetails.add(currentLocationMarker);
+    myLocationDetails.add(currentLocation);
+
+    return myLocationDetails;
 
   }
