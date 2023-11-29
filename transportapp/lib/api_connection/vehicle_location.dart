@@ -1,12 +1,10 @@
 import 'dart:async';
+//import 'dart:convert' as convert;
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-import 'package:transportapp/models/api_model.dart';
 
 import 'dart:developer' as devtools;
-
-import 'package:transportapp/models/vehicles_model.dart';
 
 
 
@@ -19,20 +17,53 @@ var _tokenURL = Uri(
     path: _tokenEndpoint,
     port: 8000,
     );
+ 
+Future<List> getVehicleLocations() async {
+   devtools.log(_tokenURL.toString());
+  final locationresponse = await http.get( _tokenURL);
+  if (locationresponse.statusCode == 200) {
+    devtools.log("successfully got the vehicle");
+    final body = locationresponse.body;
+    final json = jsonDecode(body);
+    final results = json as List<dynamic>;
+    final locationtransformed = results.map((e) {
+      e['latitude'];
+      e['longitude'];
+    }).toList();
+    
+    
+    
+    //var jsonResponse = convert.jsonDecode(response.body) as List<Map<String, dynamic>>;
+  
+
+   // vehicles = vehicleDetails.map((e) => e).toList();
+    return locationtransformed;
+  } else {
+    devtools.log(json.decode(locationresponse.body).toString());
+    throw Exception(json.decode(locationresponse.body));
+  }
+}
 
 
-Future<Vehicle> getVehicles(UserLogin userLogin) async {
+Future<List> getVehicles() async {
+  //List<Vehicle> vehicleDetails = [];
+
+  //List<Vehicle> vehicles = [];
   devtools.log(_tokenURL.toString());
-  final http.Response response = await http.post(
-    _tokenURL,
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(userLogin.toDatabaseJson()),
-  );
+  final response = await http.get( _tokenURL);
   if (response.statusCode == 200) {
-    devtools.log("successfully got the token");
-    return Vehicle.fromJson(json.decode(response.body));
+    devtools.log("successfully got the vehicle");
+    final body = response.body;
+    final json = jsonDecode(body);
+    final results = json as List<dynamic>;
+    final transformed = results.map((e) => e).toList();
+    
+    
+    //var jsonResponse = convert.jsonDecode(response.body) as List<Map<String, dynamic>>;
+  
+
+   // vehicles = vehicleDetails.map((e) => e).toList();
+    return transformed;
   } else {
     devtools.log(json.decode(response.body).toString());
     throw Exception(json.decode(response.body));

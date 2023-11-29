@@ -17,7 +17,7 @@ class _HomeViewState extends State<HomeView> {
   static const List _pages = [
     homeRoute,
     mapRoute,
-    profileroute
+    profileRoute
   ];
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,12 @@ class _HomeViewState extends State<HomeView> {
         padding: const EdgeInsets.all(40.0),
         child: Center(
           child: Column(children: [
-            const Text('Hello there welcome to a new world'),
+            Image.asset(
+              'lib/images/city_bus.jpg',
+              height: 300,
+            ),
+            const Text('Busthere', style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),),
+            const Text('Simple, Affordable transport at your convenience',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
             ElevatedButton(onPressed: () {
               Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
             }, child: const Text('View Maps')),

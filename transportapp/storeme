@@ -16,7 +16,25 @@ void main() {
     );
 }
 
-// home.dart
+
+// futureBuilder i guess
+
+ FutureBuilder(
+          future: futureVehicle,
+          builder:  (context, snapshot) {
+            if (snapshot.hasData) {
+              devtools.log(snapshot.data.toString());
+              return Text(snapshot.data.toString());
+            } else if (snapshot.hasError) {
+              devtools.log("an error has occured");
+              devtools.log(snapshot.error.toString());
+              return Text('${snapshot.error}');
+            }
+
+            return const CircularProgressIndicator();
+          },)
+
+// calling an api, home.dart
 
 import 'dart:convert';
 

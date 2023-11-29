@@ -1,3 +1,4 @@
+//import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'dart:developer' as devtools;
@@ -30,7 +31,8 @@ Future<List<dynamic>> getUserLocation() async {
     LatLng currentLocation = LatLng(position.latitude, position.longitude);
 
     
-
+    //final icon = await BitmapDescriptor.fromAssetImage(
+      //const ImageConfiguration(size: Size(24, 24)), 'icons/placeholder.png');
     
 
     devtools.log(currentLocation.toString());
@@ -41,7 +43,7 @@ Future<List<dynamic>> getUserLocation() async {
         infoWindow: InfoWindow(
           title: 'Location $currentLocation',
         ),
-        icon: BitmapDescriptor.defaultMarker,
+        icon: BitmapDescriptor.defaultMarker
       );
     
     myLocationDetails.add(currentLocationMarker);

@@ -218,13 +218,27 @@ class _MainMapState extends State<MainMap> {
                       mapController = controller;
                     },
                   ),
-                  SafeArea(
+                  Row(
+                    children: [
+                      SafeArea(
+                        child: ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).pushNamedAndRemoveUntil(homeRoute, (route) => false);
+                          },
+                           child: const Icon(Icons.arrow_back)),
+                      ),
+                      const SizedBox(width: 50,),
+                       SafeArea(
                     child: ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(homeRoute, (route) => false);
+                        Navigator.of(context).pushNamedAndRemoveUntil(vehicleRoute, (route) => false);
                       },
-                       child: const Icon(Icons.arrow_back)),
-                  )],
+                       child: const Icon(Icons.directions_bus)),
+                  ),
+                    ],
+                  ),
+                 
+                  ],
                 ),
               );
              } else {
