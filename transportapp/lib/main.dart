@@ -7,6 +7,8 @@ import 'package:transportapp/constants/routes.dart';
 import 'package:transportapp/login/login_page.dart';
 import 'package:transportapp/login/login_view.dart';
 import 'package:transportapp/map.dart';
+import 'package:transportapp/payment.dart';
+import 'package:transportapp/payment/qr_page.dart';
 import 'package:transportapp/repository/user_repository.dart';
 import 'package:transportapp/vehicles.dart';
 import 'package:transportapp/views/home_view.dart';
@@ -48,6 +50,8 @@ const AuthState({super.key, required this.userRepository});
         mapRoute: (context) => const MainMap(),
         homeRoute: (context) => const HomeView(),
         vehicleRoute: (context) => const VehicleView(),
+        paymentRoute: (context) => const PaymentView(),
+        qrcodeRoute: (context) => const QrCodeView(),
       },
       home: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {

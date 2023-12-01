@@ -2,6 +2,7 @@ import 'dart:async';
 //import 'dart:convert' as convert;
 import 'dart:convert';
 
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:developer' as devtools;
@@ -19,19 +20,23 @@ var _tokenURL = Uri(
     );
  
 Future<List> getVehicleLocations() async {
-   devtools.log(_tokenURL.toString());
+
+  
+  devtools.log(_tokenURL.toString());
   final locationresponse = await http.get( _tokenURL);
   if (locationresponse.statusCode == 200) {
     devtools.log("successfully got the vehicle");
     final body = locationresponse.body;
     final json = jsonDecode(body);
     final results = json as List<dynamic>;
+    
     final locationtransformed = results.map((e) {
       e['latitude'];
       e['longitude'];
     }).toList();
-    
-    
+
+
+  
     
     //var jsonResponse = convert.jsonDecode(response.body) as List<Map<String, dynamic>>;
   
@@ -44,6 +49,33 @@ Future<List> getVehicleLocations() async {
   }
 }
 
+
+Future<List> populateVehicleMarkers() async {
+
+  var vehicleMarkers = [];
+
+  late Future<List> vehicleLocations = getVehicleLocations();
+
+    for (var i = 0; i < vehicleLocations.length; i++) {
+
+      LatLng vehicleCoordinates = LatLng(vehicleLocations[i]['latitude'], vehicleLocations[i]['longitude']);
+
+      Marker currentVehicleMarker = Marker(
+        markerId: const MarkerId("myLocation"),
+        position: vehicleCoordinates,
+        infoWindow: InfoWindow(
+          title: 'Location $vehicleCoordinates',
+        ),
+        icon: BitmapDescriptor.defaultMarker
+      );
+
+      vehicleMarkers.add(currentVehicleMarker);
+
+            
+    }
+    
+  return vehicleMarkers;
+}
 
 Future<List> getVehicles() async {
   //List<Vehicle> vehicleDetails = [];

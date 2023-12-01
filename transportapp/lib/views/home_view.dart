@@ -33,8 +33,8 @@ class _HomeViewState extends State<HomeView> {
             const Text('Busthere', style: TextStyle(fontSize: 33, fontWeight: FontWeight.bold),),
             const Text('Simple, Affordable transport at your convenience',textAlign: TextAlign.center, style: TextStyle(fontWeight: FontWeight.bold),),
             ElevatedButton(onPressed: () {
-              Navigator.of(context).pushNamedAndRemoveUntil(loginRoute, (route) => false);
-            }, child: const Text('View Maps')),
+              Navigator.of(context).pushNamedAndRemoveUntil(mapRoute, (route) => false);
+            }, child: const Text('Start Trip')),
             ElevatedButton(onPressed: () {
               BlocProvider.of<AuthenticationBloc>(context)
                         .add(LoggedOut());

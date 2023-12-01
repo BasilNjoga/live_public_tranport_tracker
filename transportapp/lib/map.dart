@@ -84,36 +84,36 @@ class _MainMapState extends State<MainMap> {
       markers.add(destinationMarker);
 
 
-      // double miny = (startLatitude <= destinationLatitude)
-      //     ? startLatitude
-      //     : destinationLatitude;
-      // double minx = (startLongitude <= destinationLongitude)
-      //     ? startLongitude
-      //     : destinationLongitude;
-      // double maxy = (startLatitude <= destinationLatitude)
-      //     ? destinationLatitude
-      //     : startLatitude;
-      // double maxx = (startLongitude <= destinationLongitude)
-      //     ? destinationLongitude
-      //     : startLongitude;
+      double miny = (startLatitude <= destinationLatitude)
+          ? startLatitude
+          : destinationLatitude;
+      double minx = (startLongitude <= destinationLongitude)
+          ? startLongitude
+          : destinationLongitude;
+      double maxy = (startLatitude <= destinationLatitude)
+          ? destinationLatitude
+          : startLatitude;
+      double maxx = (startLongitude <= destinationLongitude)
+          ? destinationLongitude
+          : startLongitude;
 
-      // double southWestLatitude = miny;
-      // double southWestLongitude = minx;
+      double southWestLatitude = miny;
+      double southWestLongitude = minx;
 
-      // double northEastLatitude = maxy;
-      // double northEastLongitude = maxx;
-      // devtools.log("changing controller");
+      double northEastLatitude = maxy;
+      double northEastLongitude = maxx;
+      devtools.log("changing controller");
 
 
-      // mapController.animateCamera(
-      //   CameraUpdate.newLatLngBounds(
-      //     LatLngBounds(
-      //       northeast: LatLng(northEastLatitude, northEastLongitude),
-      //       southwest: LatLng(southWestLatitude, southWestLongitude),
-      //     ),
-      //     100.0,
-      //   ),
-      // );
+      mapController.animateCamera(
+        CameraUpdate.newLatLngBounds(
+          LatLngBounds(
+            northeast: LatLng(northEastLatitude, northEastLongitude),
+            southwest: LatLng(southWestLatitude, southWestLongitude),
+          ),
+          100.0,
+        ),
+      );
 
       await getPolyPoints(startLatitude, startLongitude, destinationLatitude, destinationLongitude);
 
@@ -220,6 +220,7 @@ class _MainMapState extends State<MainMap> {
                   ),
                   Row(
                     children: [
+                      const SizedBox(width: 10,),
                       SafeArea(
                         child: ElevatedButton(
                           onPressed: () {
@@ -227,7 +228,7 @@ class _MainMapState extends State<MainMap> {
                           },
                            child: const Icon(Icons.arrow_back)),
                       ),
-                      const SizedBox(width: 50,),
+                      const SizedBox(width: 100,),
                        SafeArea(
                     child: ElevatedButton(
                       onPressed: () {
