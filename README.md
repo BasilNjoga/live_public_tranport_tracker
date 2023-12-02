@@ -9,12 +9,14 @@ of your journey
    - python
    - django
    - django rest framework
-   - rust
 ### Frontend 
   - Flutter
   - Dart
+  - Bloc
+  - 
 ### API's
   - Django rest Framework
   - Google maps api
+  - Mpesa Daraja 2.0 api
 
 
