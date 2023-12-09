@@ -39,6 +39,5 @@ https://github.com/BasilNjoga/live_public_transport_tracker/blob/main/images/hom
   - Django rest Framework
   - Google maps api
   - Mpesa Daraja 2.0 api
->>>>>>> 0fd1aa649eec0a471aa38538455f610d970bc02d
 
 
