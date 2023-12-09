@@ -22,14 +22,17 @@ This is a mobile application that automates public transport in kenya allowing y
 
 
 ### Results
-<img src="https://github.com/BasilNjoga/live_public_transport_tracker/blob/main/images/homepage.jpg"  alt='Home Page' height=75>
+- Home Page
+<img src="https://github.com/BasilNjoga/live_public_transport_tracker/blob/main/images/homepage.jpg"  alt='Home Page' height=500>
 
 </br>
 
-![Route Mapping Page](https://github.com/BasilNjoga/live_public_transport_tracker/blob/main/images/routemapping.jpg 'Route Mapping Page')
+- Route Mapping
+<img src="https://github.com/BasilNjoga/live_public_transport_tracker/blob/main/images/routemapping.jpg"  alt='Route Mapping Page' height=500>
 
 </br>
 
-![Login Page](https://github.com/BasilNjoga/live_public_transport_tracker/blob/main/images/loginpage.jpg 'login page')
+- Login and Authentication
+<img src="https://github.com/BasilNjoga/live_public_transport_tracker/blob/main/images/loginpage.jpg" alt='login page' height=500>
 
 
