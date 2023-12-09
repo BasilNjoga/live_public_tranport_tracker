@@ -8,7 +8,7 @@ This is a fullstack mobile application that automates public transport in kenya 
    - python
    - django
    - django rest framework
-   - postgres database
+   - postgresql database
   
 ### Frontend 
   - Flutter
