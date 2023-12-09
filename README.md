@@ -29,5 +29,15 @@ This is a mobile application that automates public transport in kenya allowing y
 - [Login Page](https://github.com/BasilNjoga/live_public_transport_tracker/tree/main/loginpage.jpg 'login page')
 
 
+### Frontend 
+  - Flutter
+  - Dart
+  - Bloc
+  - 
+### API's
+  - Django rest Framework
+  - Google maps api
+  - Mpesa Daraja 2.0 api
+>>>>>>> 0fd1aa649eec0a471aa38538455f610d970bc02d
 
 
