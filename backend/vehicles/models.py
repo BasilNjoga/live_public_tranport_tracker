@@ -5,6 +5,7 @@ class VehicleDetail(models.Model):
     number_plate = models.CharField(max_length=256)
     bus_sacco = models.CharField(max_length=256)
     route = models.CharField(max_length=256)
+    departure = models.CharField(max_length=256, default=15)
     latitude = models.FloatField(default=0.0)
     longitude = models.FloatField(default=0.0)
 

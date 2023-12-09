@@ -1,15 +1,14 @@
-
 import requests
 
 headers = {
   'Content-Type': 'application/json',
-  'Authorization': 'Bearer fhfV4ebHDZPVhQElGOOPNsbaOsjp'
+  'Authorization': 'Bearer XPXDU1LRmBsnEG1uM2E8wIK4qpK6'
 }
 
 payload = {
     "BusinessShortCode": 174379,
-    "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjMxMTMwMDIwMjUw",
-    "Timestamp": "20231130020250",
+    "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjMxMTMwMTUxMzM2",
+    "Timestamp": "20231130151336",
     "TransactionType": "CustomerPayBillOnline",
     "Amount": 1,
     "PartyA": 254796814233,

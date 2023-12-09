@@ -45,12 +45,20 @@ class _VehicleViewState extends State<VehicleView> {
                           itemCount: snapshot.data?.length,
                           itemBuilder: (BuildContext context, int index) {
                           return ListTile(
-                              title: Row(
+                              title: Column(
                                 children: [
-                                  const Icon(Icons.departure_board),
-                                  const SizedBox(width: 10,),
-                                  Text(snapshot.data![index]['number_plate'] + " : " + snapshot.data![index]['bus_sacco'],
-                                    ),
+                                  Row(
+                                    children: [
+                                      const Icon(Icons.departure_board),
+                                      const SizedBox(width: 10,),
+                                      Text(snapshot.data![index]['number_plate'] + " : " + snapshot.data![index]['bus_sacco'],
+                                      style: const TextStyle(fontSize: 20),
+                                        ),
+                                     
+                                    ],
+                                  ),
+                                   Text("Departure in " + snapshot.data![index]['departure'] + " minutes"),
+                                      const Text("Price: 50")
                                 ],
                               ),
                         );
@@ -66,7 +74,7 @@ class _VehicleViewState extends State<VehicleView> {
            ),
             FloatingActionButton.extended(onPressed: () {
             Navigator.of(context).pushNamedAndRemoveUntil(paymentRoute, (route) => false);
-          }, label: const Text("Pay Here"))
+          }, label: const Text("Confirm Trip"))
          ],
        )
     );

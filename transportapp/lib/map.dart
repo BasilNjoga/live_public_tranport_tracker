@@ -33,7 +33,7 @@ class _MainMapState extends State<MainMap> {
   String destinationAddress = 't';
 
   String? placeDistance;
-  int travelPrice = 50;
+  int travelPrice = 0;
 
   Map<PolylineId, Polyline> polylines = {};
   List<LatLng> polylineCoordinates = [];
@@ -84,36 +84,36 @@ class _MainMapState extends State<MainMap> {
       markers.add(destinationMarker);
 
 
-      double miny = (startLatitude <= destinationLatitude)
-          ? startLatitude
-          : destinationLatitude;
-      double minx = (startLongitude <= destinationLongitude)
-          ? startLongitude
-          : destinationLongitude;
-      double maxy = (startLatitude <= destinationLatitude)
-          ? destinationLatitude
-          : startLatitude;
-      double maxx = (startLongitude <= destinationLongitude)
-          ? destinationLongitude
-          : startLongitude;
+      // double miny = (startLatitude <= destinationLatitude)
+      //     ? startLatitude
+      //     : destinationLatitude;
+      // double minx = (startLongitude <= destinationLongitude)
+      //     ? startLongitude
+      //     : destinationLongitude;
+      // double maxy = (startLatitude <= destinationLatitude)
+      //     ? destinationLatitude
+      //     : startLatitude;
+      // double maxx = (startLongitude <= destinationLongitude)
+      //     ? destinationLongitude
+      //     : startLongitude;
 
-      double southWestLatitude = miny;
-      double southWestLongitude = minx;
+      // double southWestLatitude = miny;
+      // double southWestLongitude = minx;
 
-      double northEastLatitude = maxy;
-      double northEastLongitude = maxx;
-      devtools.log("changing controller");
+      // double northEastLatitude = maxy;
+      // double northEastLongitude = maxx;
+      // devtools.log("changing controller");
 
 
-      mapController.animateCamera(
-        CameraUpdate.newLatLngBounds(
-          LatLngBounds(
-            northeast: LatLng(northEastLatitude, northEastLongitude),
-            southwest: LatLng(southWestLatitude, southWestLongitude),
-          ),
-          100.0,
-        ),
-      );
+      // mapController.animateCamera(
+      //   CameraUpdate.newLatLngBounds(
+      //     LatLngBounds(
+      //       northeast: LatLng(northEastLatitude, northEastLongitude),
+      //       southwest: LatLng(southWestLatitude, southWestLongitude),
+      //     ),
+      //     100.0,
+      //   ),
+      // );
 
       await getPolyPoints(startLatitude, startLongitude, destinationLatitude, destinationLongitude);
 
@@ -129,6 +129,7 @@ class _MainMapState extends State<MainMap> {
       
       setState(() {
         placeDistance = totalDistance.toStringAsFixed(2);
+        travelPrice = 80;
         devtools.log("Distance: $placeDistance");
       });
       
@@ -228,7 +229,7 @@ class _MainMapState extends State<MainMap> {
                           },
                            child: const Icon(Icons.arrow_back)),
                       ),
-                      const SizedBox(width: 100,),
+                      const Spacer(),
                        SafeArea(
                     child: ElevatedButton(
                       onPressed: () {
@@ -236,7 +237,9 @@ class _MainMapState extends State<MainMap> {
                       },
                        child: const Icon(Icons.directions_bus)),
                   ),
+                    const SizedBox(width: 10,),
                     ],
+                    
                   ),
                  
                   ],
@@ -257,7 +260,6 @@ class _MainMapState extends State<MainMap> {
         //  minimum: const EdgeInsets.all(0),
           child:  Container(
             decoration: BoxDecoration(
-              color: Colors.yellow,
               borderRadius: BorderRadius.circular(20),
               ),
             width: width,
@@ -297,8 +299,14 @@ class _MainMapState extends State<MainMap> {
                    fontSize: 16,
                    fontWeight: FontWeight.bold,
                  )),
+                 const SizedBox(height: 5,),
+                 Text('PRICE: $travelPrice Ksh',
+                 style: const TextStyle(
+                   fontSize: 16,
+                   fontWeight: FontWeight.bold,
+                 )),
       
-      
+                  const SizedBox(height: 5,),
       
                   SizedBox(
                     child: FloatingActionButton.extended(

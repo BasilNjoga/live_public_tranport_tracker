@@ -42,7 +42,7 @@ const AuthState({super.key, required this.userRepository});
     return MaterialApp(
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-              seedColor: const Color.fromRGBO(244, 224, 185, 1.0)),
+              seedColor: const Color.fromRGBO(255, 186, 81, 1.0)),
       ),
       routes: {
         registerRoute: (coutext) => RegisterView(),

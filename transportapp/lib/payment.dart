@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:transportapp/api_connection/payment_api.dart';
 import 'package:transportapp/constants/routes.dart';
 
 
@@ -19,8 +20,9 @@ class _PaymentViewState extends State<PaymentView> {
 
   void _onSubmit() {
     setState(() => isLoading = true);
+    getPayment();
     Future.delayed(
-      const Duration(seconds: 6),
+      const Duration(seconds: 11),
       () {setState(() => isLoading = false);
       Navigator.of(context).pushNamedAndRemoveUntil(qrcodeRoute, (route) => false);
   });
@@ -42,9 +44,9 @@ class _PaymentViewState extends State<PaymentView> {
               Column(
                 children: [
                   const SizedBox(height: 100,),
-                  const Text("Pay Here"),
+                  const Text("Mobile Money Payment", style: TextStyle(fontSize: 20),),
                   const SizedBox(height: 40,),
-                  const Text("50", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 33),),
+                  const Text("50 Ksh", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 33),),
                   const SizedBox(height: 10,),
 
                   // initiate payment system

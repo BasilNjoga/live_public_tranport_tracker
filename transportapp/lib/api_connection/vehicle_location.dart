@@ -2,7 +2,6 @@ import 'dart:async';
 //import 'dart:convert' as convert;
 import 'dart:convert';
 
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 
 import 'dart:developer' as devtools;
@@ -50,32 +49,32 @@ Future<List> getVehicleLocations() async {
 }
 
 
-Future<List> populateVehicleMarkers() async {
+// Future<List> populateVehicleMarkers() async {
 
-  var vehicleMarkers = [];
+//   var vehicleMarkers = [];
 
-  late Future<List> vehicleLocations = getVehicleLocations();
+//   late Future<List> vehicleLocations = getVehicleLocations();
 
-    for (var i = 0; i < vehicleLocations.length; i++) {
+//     for (var i = 0; i < vehicleLocations.length; i++) {
 
-      LatLng vehicleCoordinates = LatLng(vehicleLocations[i]['latitude'], vehicleLocations[i]['longitude']);
+//       LatLng vehicleCoordinates = LatLng(vehicleLocations[i]['latitude'], vehicleLocations[i]['longitude']);
 
-      Marker currentVehicleMarker = Marker(
-        markerId: const MarkerId("myLocation"),
-        position: vehicleCoordinates,
-        infoWindow: InfoWindow(
-          title: 'Location $vehicleCoordinates',
-        ),
-        icon: BitmapDescriptor.defaultMarker
-      );
+//       Marker currentVehicleMarker = Marker(
+//         markerId: const MarkerId("myLocation"),
+//         position: vehicleCoordinates,
+//         infoWindow: InfoWindow(
+//           title: 'Location $vehicleCoordinates',
+//         ),
+//         icon: BitmapDescriptor.defaultMarker
+//       );
 
-      vehicleMarkers.add(currentVehicleMarker);
+//       vehicleMarkers.add(currentVehicleMarker);
 
             
-    }
+//     }
     
-  return vehicleMarkers;
-}
+//   return vehicleMarkers;
+// }
 
 Future<List> getVehicles() async {
   //List<Vehicle> vehicleDetails = [];
