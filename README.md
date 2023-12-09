@@ -22,7 +22,7 @@ This is a mobile application that automates public transport in kenya allowing y
 
 
 ### Results
-![Home Page](https://github.com/BasilNjoga/live_public_transport_tracker/blob/main/images/homepage.jpg 'Home Page')
+<img src="https://github.com/BasilNjoga/live_public_transport_tracker/blob/main/images/homepage.jpg"  alt='Home Page' height=75>
 
 </br>
 
