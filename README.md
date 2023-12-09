@@ -9,14 +9,24 @@ of your journey
    - python
    - django
    - django rest framework
+   - postgres database
+  
 ### Frontend 
   - Flutter
   - Dart
+  - bloc
 ### API's
   - Django rest Framework
   - Google maps api
   - mpesa daraja 2.0
 
 ### Results
+
+  - [Home Page](https://github.com/BasilNjoga/live_public_transport_tracker/tree/main/homepage.jpg 'Home Page')
+
+  - [Route Mapping Page](https://github.com/BasilNjoga/live_public_transport_tracker/tree/main/routemapping.jpg 'Route Mapping Page')
+
+- [Login Page](https://github.com/BasilNjoga/live_public_transport_tracker/tree/main/loginpage.jpg 'login page')
+
 
 
